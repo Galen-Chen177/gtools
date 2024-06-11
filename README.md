@@ -17,3 +17,9 @@ to this in your browser, and you can call your Go code from devtools.
 ## Building
 
 To build a redistributable, production mode package, use `wails build`.
+
+
+## init by
+```
+wails init -n gtools-wails -t vue-ts
+```
