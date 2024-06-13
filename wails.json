@@ -7,7 +7,7 @@
   "frontend:dev:watcher": "npm run dev",
   "frontend:dev:serverUrl": "auto",
   "author": {
-    "name": "陈慧晶",
+    "name": "chenhuijing",
     "email": "chenhuijing.vendor@sensetime.com"
   }
 }
