@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"gtools-wails/backend"
+	"gtools-wails/backend/jsonfunc"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/menu"
@@ -40,6 +41,7 @@ func main() {
 		OnStartup:        app.Startup,
 		Bind: []interface{}{
 			app,
+			jsonfunc.NewJsonFunc(),
 		},
 	})
 
