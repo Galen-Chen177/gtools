@@ -5,6 +5,10 @@
     </div>
     <div class="daohang">
       <RouterLink to="/json2struct" active-class="daohanglink">json2struct</RouterLink>
+      <br />
+      <RouterLink to="/jsonfile2struct" active-class="daohanglink">jsonfile2struct</RouterLink>
+      <br />
+      <RouterLink to="/urlescap" active-class="daohanglink">urlEscap</RouterLink>
     </div>
     <div class="content">
       <RouterView></RouterView>

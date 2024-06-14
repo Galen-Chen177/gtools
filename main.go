@@ -2,7 +2,9 @@ package main
 
 import (
 	"embed"
+
 	"gtools-wails/backend"
+	"gtools-wails/backend/dialog"
 	"gtools-wails/backend/jsonfunc"
 
 	"github.com/wailsapp/wails/v2"
@@ -19,6 +21,8 @@ var assets embed.FS
 func main() {
 	// Create an instance of the app structure
 	app := backend.NewApp()
+	jsonFunc := jsonfunc.NewJsonFunc()
+	dialog := &dialog.BackendDialog{}
 
 	AppMenu := menu.NewMenu()
 	FileMenu := AppMenu.AddSubmenu("File")
@@ -37,11 +41,12 @@ func main() {
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
-		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
-		OnStartup:        app.Startup,
+		// BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
+		OnStartup: dialog.Startup,
 		Bind: []interface{}{
 			app,
-			jsonfunc.NewJsonFunc(),
+			jsonFunc,
+			dialog,
 		},
 	})
 

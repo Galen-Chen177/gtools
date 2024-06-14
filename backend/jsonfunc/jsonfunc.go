@@ -1,6 +1,7 @@
 package jsonfunc
 
 import (
+	"net/url"
 	"os"
 
 	"gtools-wails/backend/utils"
@@ -9,6 +10,8 @@ import (
 type IJsonFunc interface {
 	JsonFile2Struct(string) string
 	Json2Struct(string) string
+
+	UrlParse(string) string
 }
 
 func NewJsonFunc() IJsonFunc {
@@ -35,4 +38,9 @@ func (j *JsonFunc) Json2Struct(jsonStr string) string {
 		return utils.Resp("", err)
 	}
 	return utils.Resp(string(bytes), nil)
+}
+
+func (j *JsonFunc) UrlParse(urlOrigin string) string {
+	enEscapeUrl, err := url.QueryUnescape(urlOrigin)
+	return utils.Resp(enEscapeUrl, err)
 }
