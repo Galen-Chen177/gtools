@@ -1,16 +1,17 @@
 <template>
   <div class="app">
-    <div class="center">
+    <div class="div_head">
       <h2>Galen test</h2>
     </div>
-    <div class="daohang">
-      <RouterLink to="/json2struct" active-class="daohanglink">json2struct</RouterLink>
+    <div class="div_daohang">
+      <RouterLink to="/json2struct" class="RouterLink" active-class="active_link_daohang">json2struct</RouterLink>
       <br />
-      <RouterLink to="/jsonfile2struct" active-class="daohanglink">jsonfile2struct</RouterLink>
+      <RouterLink to="/jsonfile2struct" class="RouterLink" active-class="active_link_daohang">jsonfile2struct
+      </RouterLink>
       <br />
-      <RouterLink to="/urlescap" active-class="daohanglink">urlEscap</RouterLink>
+      <RouterLink to="/urlescap" class="RouterLink" active-class="active_link_daohang">urlEscap</RouterLink>
     </div>
-    <div class="content">
+    <div class="div_content">
       <RouterView></RouterView>
     </div>
   </div>
@@ -21,25 +22,35 @@ import { RouterView, RouterLink } from 'vue-router'
 </script>
 
 <style>
-nav {
-  float: left;
-  width: 15%;
-}
-
-.content {
-  margin-left: 17%;
-}
-
-.center {
+.div_head {
   text-align: center;
 }
 
-.daohang {
-  float: left;
-  width: 15%;
+.div_content {
+  margin-left: 17%;
 }
 
-.daohanglink {
+
+.div_daohang {
+  float: left;
+  width: 15%;
+
+  border: 2px solid darkseagreen;
+  border-radius: 5px;
+}
+
+.active_link_daohang {
   background-color: aqua;
+  text-decoration: none;
+}
+
+.RouterLink {
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+button {
+  margin-left: 5px;
+  border-radius: 3px;
 }
 </style>

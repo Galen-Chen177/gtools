@@ -36,4 +36,4 @@ function noIncludeStruct() {
 
 
 
-<style></style>
+<style scoped></style>
