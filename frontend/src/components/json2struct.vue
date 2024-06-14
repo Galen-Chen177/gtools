@@ -15,6 +15,8 @@
 
 <script setup lang="ts" name="json2struct">
 import { ref } from 'vue'
+import { decodeApiData } from '../utils/utils'
+import { Json2Struct } from '../../wailsjs/go/jsonfunc/JsonFunc'
 
 let input = ref()
 let output = ref()
@@ -22,8 +24,17 @@ let output = ref()
 
 
 function noIncludeStruct() {
+    Json2Struct(input.value.value).then(result => {
+        let resp = decodeApiData(result)
+        if (resp.err != "") {
+            output.value.value = "err:\n" + resp.err
+            return
+        }
+        output.value.value = resp.data
+    })
 }
 function IncludeStruct() {
+    alert("未实现")
 }
 </script>
 

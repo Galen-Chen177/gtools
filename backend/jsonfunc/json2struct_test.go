@@ -17,3 +17,8 @@ func TestJson2struct(t *testing.T) {
 		fmt.Println(string(bytes))
 	}
 }
+
+func TestJf(t *testing.T) {
+	jf := NewJsonFunc()
+	fmt.Println(jf.Json2Struct(`{"a":"123"}`))
+}
