@@ -5,14 +5,17 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"runtime"
 	"strings"
 	"time"
 
 	"gtools-wails/backend"
+	"gtools-wails/backend/config"
 	"gtools-wails/backend/dialog"
 	"gtools-wails/backend/global"
 	"gtools-wails/backend/jsonfunc"
+	"gtools-wails/backend/utils"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -60,6 +63,14 @@ func MainInit() {
 		os.Exit(0)
 	}
 	// 创建配置文件夹，以及写入信息
+	// 判断文件在不在，在的话不管，不在的话创建，并写入默认的信息
+	pwd, _ := os.Getwd()
+	global.ConfigFullName = filepath.Join(pwd, "config", global.ConfigName)
+	if ok, err := utils.PathExists(global.ConfigFullName); err != nil {
+		panic(err)
+	} else if !ok {
+		config.WriteDefaultConfig()
+	}
 }
 
 func checkProgramRunning(program string) bool {
