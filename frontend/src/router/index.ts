@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import json2struct from '../components/json2struct.vue'
 import jsonfile2struct from '../components/jsonfile2struct.vue'
 import urlEscap from '../components/urlEscap.vue'
+import redisshell from '../components/redisshell.vue'
 
 
 const router = createRouter({
@@ -19,6 +20,10 @@ const router = createRouter({
         {
             path: '/urlescap',
             component: urlEscap
+        },
+        {
+            path: '/redisshell',
+            component: redisshell
         }
     ]
 })

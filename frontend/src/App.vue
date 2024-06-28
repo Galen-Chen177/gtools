@@ -10,6 +10,8 @@
       </RouterLink>
       <br />
       <RouterLink to="/urlescap" class="RouterLink" active-class="active_link_daohang">urlEscap</RouterLink>
+      <br />
+      <RouterLink to="/redisshell" class="RouterLink" active-class="active_link_daohang">redis</RouterLink>
     </div>
     <div class="div_content">
       <RouterView></RouterView>

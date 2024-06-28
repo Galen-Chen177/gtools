@@ -17,6 +17,7 @@ import (
 	"gtools-wails/backend/jsonfunc"
 	"gtools-wails/backend/utils"
 
+	"github.com/sirupsen/logrus"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
@@ -62,12 +63,18 @@ func MainInit() {
 	if checkProgramRunning(global.ApplicationName) {
 		os.Exit(0)
 	}
+	// 初始化log
+	pwd, _ := os.Getwd()
+	logf, err := os.OpenFile(filepath.Join(pwd, "gtools-wails.log"), os.O_CREATE|os.O_APPEND|os.O_RDWR, 0664)
+	if err != nil {
+		panic(err)
+	}
+	logrus.SetOutput(logf)
 	// 创建配置文件夹，以及写入信息
 	// 判断文件在不在，在的话不管，不在的话创建，并写入默认的信息
-	pwd, _ := os.Getwd()
 	global.ConfigFullName = filepath.Join(pwd, "config", global.ConfigName)
 	if ok, err := utils.PathExists(global.ConfigFullName); err != nil {
-		panic(err)
+		logrus.Panic(err)
 	} else if !ok {
 		config.WriteDefaultConfig()
 	}
