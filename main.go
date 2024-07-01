@@ -8,13 +8,14 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
-	"time"
 
 	"gtools-wails/backend"
 	"gtools-wails/backend/config"
 	"gtools-wails/backend/dialog"
 	"gtools-wails/backend/global"
 	"gtools-wails/backend/jsonfunc"
+	"gtools-wails/backend/log"
+	"gtools-wails/backend/myredis"
 	"gtools-wails/backend/utils"
 
 	"github.com/sirupsen/logrus"
@@ -29,12 +30,13 @@ var assets embed.FS
 func main() {
 	MainInit()
 
-	time.Sleep(3600 * time.Second)
-
 	// Create an instance of the app structure
 	app := backend.NewApp()
 	jsonFunc := jsonfunc.NewJsonFunc()
 	dialog := &dialog.BackendDialog{}
+	configFunc := config.NewConfig()
+	logFunc := log.NewLog()
+	redisFunc := myredis.NewRedis()
 
 	// Create application with options
 	err := wails.Run(&options.App{
@@ -49,6 +51,9 @@ func main() {
 		Bind: []interface{}{
 			app,
 			jsonFunc,
+			configFunc,
+			logFunc,
+			redisFunc,
 			dialog,
 		},
 	})
@@ -70,6 +75,8 @@ func MainInit() {
 		panic(err)
 	}
 	logrus.SetOutput(logf)
+
+	logrus.Infoln("begin")
 	// 创建配置文件夹，以及写入信息
 	// 判断文件在不在，在的话不管，不在的话创建，并写入默认的信息
 	global.ConfigFullName = filepath.Join(pwd, "config", global.ConfigName)
@@ -77,6 +84,8 @@ func MainInit() {
 		logrus.Panic(err)
 	} else if !ok {
 		config.WriteDefaultConfig()
+	} else {
+		config.ReadConfig()
 	}
 }
 

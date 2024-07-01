@@ -21,3 +21,7 @@ mysql、redis、s3、es、kafka
 
 ## redis
 链接信息，可保存到配置文件，
+
+## 如何开始项目
+cd frontend
+npm install

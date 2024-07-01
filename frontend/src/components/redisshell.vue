@@ -2,7 +2,7 @@
     <div class="redis-cli">
         <h1>Redis CLI</h1>
         <div class="input-area">
-            <input type="text" ref="command">
+            <input type="text" ref="command" @keyup.enter="handleEnter">
             <button @click="executeCommand">Execute</button>
         </div>
         <div class="output-area" ref="outputArea">
@@ -12,27 +12,40 @@
 </template>
 
 <script setup name="redisshell" lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onUpdated } from 'vue'
+import { Exec } from '../../wailsjs/go/myredis/Redis'
+import { log, decodeApiData } from '../utils/utils'
 
 let command = ref()
 let outputs = ref([""])
 let outputArea = ref()
 
-onMounted(() => {
-
-});
-
+onUpdated(() => {
+    // 显示最新的值
+    outputArea.value.scrollTop = outputArea.value.scrollHeight
+})
 
 function executeCommand() {
     if (command.value.value == "") {
         return
     }
-    outputs.value.push(command.value.value)
-    outputs.value.push("Output: Placeholder for command execution result")
-
-    // 显示最新的值
-    outputArea.value.scrollTop = outputArea.value.scrollHeight
+    Exec(command.value.value).then(result => {
+        log("info", result)
+        let resp = decodeApiData(result)
+        outputs.value.push("-->" + command.value.value)
+        if (resp.err != "") {
+            outputs.value.push("err:" + resp.err)
+            return
+        }
+        command.value.value = ""
+        outputs.value.push(resp.data)
+    })
 }
+
+function handleEnter() {
+    executeCommand()
+}
+
 
 </script>
 

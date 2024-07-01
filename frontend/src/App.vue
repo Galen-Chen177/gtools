@@ -12,6 +12,8 @@
       <RouterLink to="/urlescap" class="RouterLink" active-class="active_link_daohang">urlEscap</RouterLink>
       <br />
       <RouterLink to="/redisshell" class="RouterLink" active-class="active_link_daohang">redis</RouterLink>
+      <br />
+      <RouterLink to="/configF" class="RouterLink" active-class="active_link_daohang">config</RouterLink>
     </div>
     <div class="div_content">
       <RouterView></RouterView>
