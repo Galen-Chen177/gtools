@@ -1,30 +1,49 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import json2struct from '../components/json2struct.vue'
-import jsonfile2struct from '../components/jsonfile2struct.vue'
-import urlEscap from '../components/urlEscap.vue'
-import redisshell from '../components/redisshell.vue'
-
-
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
             path: '/json2struct',
-            component: json2struct
+            component: () => import('../components/json2struct.vue'),
+            meta: {
+                refreshPage: true
+            },
         },
         {
             path: '/jsonfile2struct',
-            component: jsonfile2struct
+            component: () => import('../components/jsonfile2struct.vue'),
+            meta: {
+                refreshPage: true
+            },
         },
         {
             path: '/urlescap',
-            component: urlEscap
+            component: () => import('../components/urlEscap.vue'),
+            meta: {
+                refreshPage: true
+            },
         },
         {
             path: '/redisshell',
-            component: redisshell
+            component: () => import('../components/redisshell.vue'),
+            meta: {
+                refreshPage: true
+            },
+        },
+        {
+            path: '/configF',
+            component: () => import('../components/config.vue'),
+            meta: {
+                refreshPage: true
+            },
         }
+        // Always leave this as last one,
+        // but you can also remove it
+        // {
+        //     path: '/:catchAll(.*)*',
+        //     component: () => import('pages/ErrorNotFound.vue'),
+        // },
     ]
 })
 
